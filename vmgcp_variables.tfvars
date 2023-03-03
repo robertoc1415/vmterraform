@@ -1,0 +1,6 @@
+project_id = "miprimeravez"
+region = "us-central1"
+zone = "us-central1-a"
+myvmname = "maquina1"
+myvmtype = "e2-micro"
+myfirewallname = "controlador"

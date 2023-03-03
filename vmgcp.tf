@@ -1,18 +1,18 @@
 # Configuración del proveedor de GCP
 provider "google" {
-  project = "tu-proyecto-de-gcp"
-  region  = "us-central1"
-  zone    = "us-central1-a"
+  credentials = file("login.json") # this line is used to provide the path of the credentials file to use for authentication
+  project     = var.project_id # this line is used to provide the id of the project where the resources will be created
+  region      = var.region # this line is used to provide the region where the resources will be created
 }
-
 # Definición de la instancia de VM
-resource "google_compute_instance" "mi_instancia_vm" {
-  name         = "nombre-de-tu-vm"
-  machine_type = "n1-standard-1"
+resource "google_compute_instance" "default" {
+  name         = var.myvmname
+  zone = var.zone
+  machine_type = var.myvmtype
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-11"
     }
   }
 
@@ -30,8 +30,8 @@ resource "google_compute_instance" "mi_instancia_vm" {
 }
 
 # Configuración del firewall
-resource "google_compute_firewall" "mi_firewall" {
-  name    = "nombre-de-tu-firewall"
+resource "google_compute_firewall" "default" {
+  name    = var.myfirewallname
   network = "default"
 
   allow {
@@ -42,3 +42,48 @@ resource "google_compute_firewall" "mi_firewall" {
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["http-server", "https-server"]
 }
+
+
+#----------------------------------------------------------------------------------------
+
+# resource "google_compute_instance" "default" {
+#   name         = "test"
+#   machine_type = "e2-micro"
+#   zone         = "us-central1-a"
+
+#   tags = ["http-server", "https-server"]
+
+#   boot_disk {
+#     initialize_params {
+#       image = "debian-cloud/debian-11"
+#       labels = {
+#         my_label = "value"
+#       }
+#     }
+#   }
+
+#   // Local SSD disk
+#   scratch_disk {
+#     interface = "SCSI"
+#   }
+
+#   network_interface {
+#     network = "default"
+
+#     access_config {
+#       // Ephemeral public IP
+#     }
+#   }
+
+#   metadata = {
+#     foo = "bar"
+#   }
+
+#   metadata_startup_script = "echo hi > /test.txt"
+
+#   service_account {
+#     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+#     email  = "robertocsm1220@gmail.com"
+#     scopes = ["cloud-platform"]
+#   }
+# }
