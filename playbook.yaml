@@ -1,0 +1,25 @@
+---
+- name: Configuración de la instancia de VM
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Instalar Apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Instalar Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Instalar Vim
+      apt:
+        name: vim
+        state: present
+
+    - name: Instalar Net-tools
+      apt:
+        name: net-tools
+        state: present
