@@ -1,6 +1,6 @@
 project_id = "miprimeravez"
 region = "us-central1"
 zone = "us-central1-a"
-myvmname = "cacao3"
+myvmname = "cacao5ghgcsisa"
 myvmtype = "e2-micro"
 myfirewallname = "controlador"
